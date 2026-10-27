@@ -12,6 +12,7 @@ theme:
 nav:
   - Home: index.md
   - Tutorial: adding-a-command.md
+  - Internals walkthrough: internals-walkthrough.md
   - Architecture: ARCHITECTURE.md
   - Contributing: contributing.md
 
