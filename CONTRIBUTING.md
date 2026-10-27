@@ -14,7 +14,7 @@ Thanks for being here! This guide takes you from zero to a merged pull request. 
 3. **Create a virtual environment and install:**
    ```bash
    python -m venv .venv
-   source .venv/bin/activate        # Windows: .venv\\Scripts\\activate
+   source .venv/bin/activate        # Windows: .venv\Scripts\activate
    pip install -e ".[dev]"
    ```
 4. **Check everything works:**
