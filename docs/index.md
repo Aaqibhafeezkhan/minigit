@@ -12,7 +12,7 @@ You need Python 3.10 or newer. Git is optional and is used for compatibility che
 git clone https://github.com/YO-WHATS-UP2/minigit.git
 cd minigit
 python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\\Scripts\\activate
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 pytest
 ```
