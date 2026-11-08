@@ -61,7 +61,8 @@ minigit cat-file -p HEAD           # look inside the commit you just made
 | `commit-tree <tree> [-p <parent>]... -m <message>` | ✅ Done | Create a commit object without moving a branch |
 | `count-objects [-v]` | ✅ Done | Count unpacked objects and report disk consumption |
 | `archive [--format zip\|tar\|tar.gz] [--prefix <dir/>] -o <file> <revision>` | ✅ Done | Write the files of a commit into a `.zip`, `.tar` or `.tar.gz` without touching the working tree |
-| `log`, `status`, `branch`, `checkout`, `diff`, `rm`, `reset`, `merge`, … | 🚧 [Open issues](../../issues) | **This is where you come in** |
+| `branch [<name> [<start-point>]]` | ✅ Done | List branches, or create one |
+| `log`, `status`, `checkout`, `diff`, `rm`, `reset`, `merge`, … | 🚧 [Open issues](../../issues) | **This is where you come in** |
 
 ## How Git works, in about a minute
 
