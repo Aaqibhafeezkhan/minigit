@@ -5,11 +5,13 @@ For each file, ``add`` stores its content as a blob object and records
 """
 
 import argparse
+import stat
+import sys
 from pathlib import Path
 
 from minigit.errors import MinigitError
 from minigit.index import Index, IndexEntry
-from minigit.objects import FILE_MODE, write_object
+from minigit.objects import EXEC_MODE, FILE_MODE, write_object
 from minigit.repo import Repository
 from minigit.worktree import IGNORE_FILE, ignore_patterns, is_ignored, iter_files, repo_relative
 
@@ -35,7 +37,8 @@ def run(args: argparse.Namespace, repo: Repository | None) -> int:
             continue
         for path in _expand(repo, raw, index):
             sha = write_object(repo, (repo.worktree / path).read_bytes(), "blob")
-            index.add(IndexEntry(FILE_MODE, sha, path))
+            mode = _mode_for(repo, path, index)
+            index.add(IndexEntry(mode, sha, path))
     index.save(repo)
     # Like Git, stage everything else first and only then complain.
     if ignored:
@@ -43,6 +46,15 @@ def run(args: argparse.Namespace, repo: Repository | None) -> int:
             f"the following paths are ignored by {IGNORE_FILE}:\n" + "\n".join(ignored)
         )
     return 0
+
+
+def _mode_for(repo: Repository, path: str, index: Index) -> str:
+    """Choose FILE_MODE or EXEC_MODE for ``path``."""
+    if sys.platform == "win32":
+        entry = index.get(path)
+        return entry.mode if entry is not None else FILE_MODE
+    st = (repo.worktree / path).stat()
+    return EXEC_MODE if bool(st.st_mode & stat.S_IXUSR) else FILE_MODE
 
 
 def _is_ignored(repo, raw, index, patterns):
